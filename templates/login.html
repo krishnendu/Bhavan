@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+        <form  method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="contain">
+                <h1>Log in</h1>
+                <div class="row">
+                    <div class="col">
+                        <div class="box">
+                            <div class="field">
+                                    <span class="text" for="id_username"> Username</span>
+                                    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+                                    <p></p>
+                                    
+                                </div>
+                            
+                                <div class="field">
+                                    <span class="text" for="id_password"> Password</span>
+                                    <input type="password" name="password" autocomplete="current-password" required id="id_password">
+                                    <p></p>
+                                    
+                                </div>
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="field">
+                                    {{ message }}
+                                </div>
+                                 {% endfor %} 
+                                {% endif %}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="submit">
+                                        <button class="waves-effect waves-light btn" type='submit'>Log in</button>
+                                        <a class="" href="/register">
+                                            Create an account
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endblock %}
