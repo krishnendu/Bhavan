@@ -14,12 +14,13 @@ class UserForm(forms.ModelForm):
     country_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'col-auto', 'placeholder' : '+91'}),label='Country Code', max_length=5 , required=False)
     phone_number= forms.CharField(widget=forms.NumberInput(attrs={'class': 'input', 'placeholder' : 'Enter Phone Number'}), label='Phone Number')
     dob = forms.DateField(widget=DateInput(attrs={'type' : 'date'}),label='Date of Birth')
-    sex=forms.TypedChoiceField(choices=(('Male','male'),('Female','female'),('Others','others')))
+    sex=forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder' : 'Enter Sex'}), label='Sex', max_length=10 )
     bio = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'  , 'placeholder' : 'Enter Bio'} ),label='Bio' , required=False )
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control' , 'placeholder' : 'Enter Address'}),label='Full Address' )
     pincode= forms.CharField(widget=forms.NumberInput(attrs={'class': 'col-auto', 'placeholder' : 'Enter Pincode'}))
     image=forms.ImageField(label='Submit Profile Picture'  )
 
+    
     class Meta:
         model = user
         fields = ('first_name','last_name','email','country_code','phone_number','dob'

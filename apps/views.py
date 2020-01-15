@@ -24,7 +24,7 @@ def register(req):
             obj=user(id=User.objects.get(username=username).id)
             obj.save()
             print('The id is :', obj.id )
-            
+
             login(req, user1)
             return redirect('home')
     else:
@@ -37,21 +37,26 @@ def login_view(req):
     if(req.method=='POST'):
         username = req.POST['username']
         password = req.POST['password']
-        user = authenticate(req, username=username, password=password)
+        try:
+            
+            user = authenticate(req, username=User.objects.get(email=username).username, password=password)
+
+            if user is not None:
+                login(req, user)
+
+                return redirect('/'+req.user.username)
+        except:
+            user = authenticate(req, username=username, password=password)
         if user is not None:
             login(req, user)
             return redirect('/'+username)
-        user = authenticate(req, email=username, password=password)
-        if user is not None:
-            login(req, user)
-            return redirect('/'+user.username)
         else:
             messages.error(req,"Username or Password does not match")
             return render(req,'login.html',navbar(req))
 
     else:
         return render(req,'login.html',navbar(req))
-    
+
 
 
 def logout_view(req):
@@ -59,18 +64,20 @@ def logout_view(req):
     return redirect('/')
 
 def navbar(req):
-    
+
     log='Log in'
     url='login'
     username='login'
     name='Krishnendu Chatterjee'
     phone_number='+917003033085'
     email='krishnenduchatterjee25@gmail.com'
+    welcome=''
     if req.user.is_authenticated:
         log='Log out'
         url='logout'
         username=req.user.username
-    nav={ 'profile' : { 'name' : 'Profile' , 'url' : username},
+        welcome='Welcome '+username
+    nav={ 'profile' : { 'name' : 'Profile' , 'url' : username , 'welcome' : welcome },
     'log' : { 'name' : log , 'url' : url},
     'register' : {'name' : 'Register' , 'url' : 'register'},
     'copyright' : { 'name' : name , 'phone_number' : phone_number , 'email' : email ,}
@@ -86,14 +93,15 @@ def profile(req,username):
         ob1={'user' : user.objects.get(id=User.objects.get(username=username).id)}
         ob1.update(navbar(req))
         ob2={ 'feedback' : {'name' : 'Feedback Form', 'url' : '/'+username+'/feedback'} }
+        ob3={ 'username' : username }
         ob1.update(ob2)
-        print(ob1)
+        ob1.update(ob3)
         return render(req,'userinfo.html',ob1)
     except:
         return redirect('/'+username+'/edit')
 
 def editprofile(req,username):
-    if not req.user.is_authenticated:
+    if( not req.user.is_authenticated or req.user.username != username ):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, req.path))
     id=user.objects.get(id=User.objects.get(username=username).id).id
     instance =get_object_or_404(user, id=id)
@@ -102,9 +110,13 @@ def editprofile(req,username):
     if form.is_valid():
         form.save()
         email=form.cleaned_data.get('email')
+        first_name=form.cleaned_data.get('first_name')
+        last_name=form.cleaned_data.get('last_name')
         obj=User.objects.get(id=id)
         obj.email=email
-        obj.save
+        obj.first_name=first_name
+        obj.last_name=last_name
+        obj.save()
         return redirect('/'+username)
     #else:
     #    form = UserForm()
@@ -114,7 +126,7 @@ def editprofile(req,username):
     #return HttpResponse('<h1>You can edit here</h1>')
 
 def feedback_view(req,username):
-    if not req.user.is_authenticated:
+    if( not req.user.is_authenticated or req.user.username != username ):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, req.path))
     email=user.objects.get(id=User.objects.get(username=username).id).email
     if(req.method=='POST'):

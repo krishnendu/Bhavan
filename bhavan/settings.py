@@ -25,7 +25,7 @@ SECRET_KEY = '%ow2uq+hdsvi1#gggv-ikl^)ddl=2bo-@te2f(7zbq&b@u26d+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -130,13 +130,13 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-#EMAIL_HOST ='smtp.gmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'avikrisharka@gmail.com'
-#EMAIL_HOST_PASSWORD = 'BPPIMT123'
-#EMAIL_USE_TLS = True
-#EMAIL_USE_SSL = False
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'krishnenduwebserver@gmail.com'
+EMAIL_HOST_PASSWORD = 'lcwdiehhaaoimepq'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Bhawan Team <noreply@Bhawan.home>'
 
 LOGIN_REDIRECT_URL='/'
 LOGIN_URL='/login'

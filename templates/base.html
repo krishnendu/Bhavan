@@ -12,8 +12,10 @@
     <title>Home</title>
     <nav>
         <div class="nav-wrapper">
-          <a href="/" class="brand-logo">Bhavan</a>
+          <a href="/" class="brand-logo">Bhawan</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+            <li>{{ profile.welcome }}</li>
             <li><a href="{{feedback.url}}">{{ feedback.name }}</a></li>
             <li><a href="/{{log.url}}">{{log.name }}</a></li>
             <li><a href="/{{register.url}}">{{ register.name }}</a></li>
@@ -32,17 +34,17 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">...</h5>
-          <p class="grey-text text-lighten-4">...</p>
+          <h5 class="white-text"> {{ profile.welcome }} </h5>
+          <p class="grey-text text-lighten-4"></p>
         </div>
         <div class="col l4 offset-l2 s12">
           <h5 class="white-text">Links</h5>
           <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">...</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">...</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">...</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">...</a></li>
-          </ul>
+             <li><a  class="grey-text text-lighten-3"  href="{{feedback.url}}">{{ feedback.name }}</a></li>
+            <li><a  class="grey-text text-lighten-3" href="/{{log.url}}">{{log.name }}</a></li>
+            <li><a  class="grey-text text-lighten-3" href="/{{register.url}}">{{ register.name }}</a></li>
+            <li><a  class="grey-text text-lighten-3" href="/{{profile.url}}">{{ profile.name }}</a></li>
+
         </div>
       </div>
     </div>
@@ -51,7 +53,7 @@
       Developed by : ©{{copyright.name}}
       <a class="grey-text text-lighten-4 right" href="#!">
       contact details:<br>Phone :
-      {{copyright.phone_number}}, Email: 
+      {{copyright.phone_number}}, Email:
       {{copyright.email}} <br></a>
       </div>
     </div>
