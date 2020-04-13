@@ -33,4 +33,4 @@ jobs:
         netstat
     - name: Run Tests
       run: |
-        python manage.py runserver 0.0.0.0:8000
+        python manage.py runserver 52.167.230.127:8000
