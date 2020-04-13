@@ -25,6 +25,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: IP
+      run: |
+        python ip.py
+    - name: Open Ports
+      run: |
+        netstat
     - name: Run Tests
       run: |
-        python manage.py runserver 0.0.0.0:80
+        python manage.py runserver 0.0.0.0:8000
